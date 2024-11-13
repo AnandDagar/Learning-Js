@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <style>
+    .container {
+      width: 50%;
+      margin: 100px auto;
+      text-align: center;
+    }
+    .tab_block button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      margin: 0px 3px;
+      font-weight: 700;
+      color: #000;
+    }
+    .tab_block button.active {
+      background: green;
+      color: #fff;
+    }
+    .tab_body {
+      padding: 20px;
+      background: rgb(243, 238, 238);
+      color: #000;
+      margin-top: 20px;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+  <body>
+    <section>
+      <div class="container">
+        <div class="tab_block">
+          <i class="fa fa-minus" onclick="switchPrev()"></i>
+          <button class="active" onclick="showtab(0)">Tab 1</button>
+          <button onclick="showtab(1)">Tab 2</button>
+          <button onclick="showtab(2)">Tab 3</button>
+          <i class="fa fa-plus" onclick="switchNext()"></i>
+          <div class="tab_body">
+            <div class="tab-content active">
+              <h3>Content for Tab 1</h3>
+              <p>
+                This is the content for the first tab. Here you can add any
+                content you want for Tab 1.
+              </p>
+            </div>
+            <div class="tab-content">
+              <h3>Content for Tab 2</h3>
+              <p>
+                This is the content for the second tab. You can add any
+                information you want for Tab 2.
+              </p>
+            </div>
+            <div class="tab-content">
+              <h3>Content for Tab 3</h3>
+              <p>
+                This is the content for the third tab. You can add any
+                information you want for Tab 3.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Function to show a specific tab
+      function showtab(tabIndex) {
+        const tabButtons = document.querySelectorAll(".tab_block button");
+        const tabs = document.querySelectorAll(".tab-content");
+
+        tabs.forEach((tab) => tab.classList.remove("active"));
+        tabButtons.forEach((button) => button.classList.remove("active"));
+
+        tabs[tabIndex].classList.add("active");
+        tabButtons[tabIndex].classList.add("active");
+      }
+
+      // Function to switch to the next tab (for the 'fa-plus' button)
+      function switchNext() {
+        const tabButtons = document.querySelectorAll(".tab_block button");
+        const tabs = document.querySelectorAll(".tab-content");
+
+        // Get the index of the currently active tab
+        let activeTabIndex = Array.from(tabs).findIndex((tab) =>
+          tab.classList.contains("active")
+        );
+
+        // Remove 'active' class from the current tab and button
+        tabs[activeTabIndex].classList.remove("active");
+        tabButtons[activeTabIndex].classList.remove("active");
+
+        // Calculate the index of the next tab, looping back to the first if necessary
+        let nextTabIndex = (activeTabIndex + 1) % tabs.length;
+
+        // Add 'active' class to the next tab and button
+        tabs[nextTabIndex].classList.add("active");
+        tabButtons[nextTabIndex].classList.add("active");
+      }
+
+      // Function to switch to the previous tab (for the 'fa-minus' button)
+      function switchPrev() {
+        const tabButtons = document.querySelectorAll(".tab_block button");
+        const tabs = document.querySelectorAll(".tab-content");
+
+        // Get the index of the currently active tab
+        let activeTabIndex = Array.from(tabs).findIndex((tab) =>
+          tab.classList.contains("active")
+        );
+
+        // Remove 'active' class from the current tab and button
+        tabs[activeTabIndex].classList.remove("active");
+        tabButtons[activeTabIndex].classList.remove("active");
+
+        // Calculate the index of the previous tab, looping back to the last if necessary
+        let prevTabIndex = (activeTabIndex - 1 + tabs.length) % tabs.length;
+
+        // Add 'active' class to the previous tab and button
+        tabs[prevTabIndex].classList.add("active");
+        tabButtons[prevTabIndex].classList.add("active");
+      }
+    </script>
+  </body>
+</html>
